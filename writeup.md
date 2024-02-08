@@ -133,7 +133,7 @@ On doit ajouter les bon module pour que le programme compile, comme indiqué dan
 
 La correction apportée dans le code utilise la méthode "entry" pour accéder à une équipe dans la hashmap ou insérer une nouvelle équipe si elle n'existe pas encore. Ensuite, elle met à jour les scores des équipes en conséquence, en ajoutant les buts marqués et concédés à chaque équipe respectivement. Cette approche garantit que chaque équipe est correctement mise à jour en fonction des résultats de chaque match.
 
-## options3.rs
+## Exercice options3.rs
 
  La variable y est consommée dans le match, ce qui signifie qu'elle n'est plus disponible pour être utilisée après. Cela génère une erreur de "valeur inutilisée" pour y à la fin du code.
 
@@ -141,7 +141,7 @@ On sait que dans Rust, lorsqu'on fait correspondre une référence dans un match
 
 Donc, pour corriger le code sans supprimer la ligne y, on peut utiliser ref dans le match pour faire correspondre une référence à p, et ainsi permettre à y d'être utilisée après le match.
 
-## errors6.rs
+## Exercice errors6.rs
 
 L'objectif du programme est de gérer les erreurs de manière plus précise lors de la conversion d'une chaîne en entier et lors de la création d'un entier positif non nul à partir de cette valeur entière.
 
@@ -151,7 +151,7 @@ On sait que unwrap() est une méthode qui déclenche une panique si elle rencont
 
 Donc, en ajoutant des lignes de code pour définir un type d'erreur personnalisé (ParsePosNonzeroError) et des fonctions pour convertir les erreurs de création et de conversion en ce type d'erreur personnalisé, nous permettons au programme de gérer plus efficacement les erreurs et de les traiter de manière appropriée sans interrompre brusquement l'exécution.
 
-## generics2.rs
+## Exercice generics2.rs
 
 L'objectif du programme est de créer une structure Wrapper qui peut envelopper n'importe quel type de données. Cependant, dans la version initiale du code, la structure Wrapper était conçue uniquement pour stocker des valeurs de type u32, ce qui la rendait moins flexible.
 
@@ -159,7 +159,31 @@ Or ici, dans le test store_str_in_wrapper, nous avons essayé de stocker une cha
 
 Donc, en intégrant les génériques dans la structure Wrapper, nous pouvons maintenant créer des instances de Wrapper avec n'importe quel type de données, ce qui permet au test store_str_in_wrapper de fonctionner correctement en stockant une chaîne de caractères dans la structure Wrapper.
 
-## traits5.rs   
+## Exercice traits5.rs   
 
 En spécifiant <T: SomeTrait + OtherTrait> dans la signature de some_func, on garantit que la fonction ne sera applicable que sur des instances de types qui respectent simultanément ces deux contraintes. Cela permet à some_func de compiler sans erreurs lorsqu'elle est appelée avec des instances de SomeStruct ou OtherStruct, car ces types sont explicitement déclarés pour implémenter  les deux traits requis. En conséquence, cette approche assure la flexibilité et la sécurité de type, en veillant à ce que la fonction puisse exécuter les opérations demandées sur les objets passés en argument.
 
+
+## Exercice lifetimes3.rs
+
+En utilisant l'annotation de durée de vie 'a dans la définition de la structure Book et en appliquant cette même annotation aux champs author et title, on spécifie que la durée de vie des références aux chaînes de caractères dans author et title doit être au moins aussi longue que celle de la structure Book elle-même. Cela garantit que tant que l'instance de Book existe, les références à author et title restent valides et pointent vers des données existantes.
+
+## Exercice tests4.rs
+
+En ajoutant #[should_panic] aux tests negative_width et negative_height, on valide que la fonction panique comme prévu avec des valeurs négatives, transformant cette panique en condition de succès pour ces tests. Cela assure que Rectangle::new() se comporte correctement face à des valeurs inappropriées.
+
+## Exercice iterators5.rs
+
+Pour count_iterator, nous utilisons map.values() pour obtenir un itérateur sur les valeurs du HashMap, puis nous filtrons ces valeurs pour ne garder que celles égales à value avec .filter(|&v| *v == value), et finalement, nous comptons le nombre d'éléments restants avec .count().
+
+Pour count_collection_iterator, nous parcourons chaque HashMap dans la collection avec collection.iter(), utilisons flat_map pour créer un itérateur unique sur toutes les valeurs de tous les HashMaps, filtrons ces valeurs comme précédemment, puis comptons le nombre d'éléments restants.
+
+## Exercice rc1.rs
+
+En utilisant Rc::clone(&sun) pour chaque planète, nous augmentons le compteur de références de l'instance Sun sans dupliquer l'objet lui-même. Cela permet à chaque instance de Planet de posséder une référence à l'objet Sun partagé. Lorsqu'une planète est abandonnée, la référence à Sun qu'elle détient est également abandonnée, ce qui réduit le compteur de références de Sun par un.
+
+## Exercice using_as.rs
+
+Dans le cas présent, "values.len()" retourne un "usize", un type entier, et pour effectuer une division qui retourne un "f64", nous devons convertir explicitement ce résultat en "f64" en utilisant l'opérateur "as".
+
+En ajoutant as "f64" après "values.len()", nous convertissons le nombre d'éléments dans le tableau (qui est de type usize) en un nombre à virgule float (f64). Cela permet une division flottante correcte, garantissant que la fonction retourne le type attendu (f64).
